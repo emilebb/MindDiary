@@ -100,6 +100,9 @@ export const AIAssistant = ({
 
   const generateContextualSuggestions = useCallback(async (reasons) => {
     const contextualSuggestions = [];
+    
+    // Calcular blockageScore para usar en las sugerencias
+    const { blockageScore = 0 } = detectCreativeBlock();
 
     if (reasons.includes('long_pause')) {
       contextualSuggestions.push({
@@ -149,7 +152,7 @@ export const AIAssistant = ({
 
     setSuggestions(contextualSuggestions);
     setMode('suggesting');
-  }, [blockageScore]);
+  }, [userContext, detectCreativeBlock]);
 
   const handleSuggestionClick = async (suggestion) => {
     switch (suggestion.action) {

@@ -147,6 +147,16 @@ const TextEditor = ({ isOpen, onClose, onSave, projectId }) => {
     }
   };
 
+  const formatLastSaved = () => {
+    if (!lastSaved) return '';
+    const now = new Date();
+    const diff = Math.floor((now - lastSaved) / 1000);
+    
+    if (diff < 60) return 'ahora';
+    if (diff < 3600) return `hace ${Math.floor(diff / 60)} min`;
+    return `hace ${Math.floor(diff / 3600)} h`;
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
